@@ -12,9 +12,9 @@ import (
 
 func createCommand() *cli.Command {
 	return &cli.Command{
-		Name:    configuration.GetEnv("APP_NAME"),
+		Name:    configuration.GetRequiredEnv("APP_NAME"),
 		Usage:   "python grader",
-		Version: configuration.GetEnv("APP_VERSION"),
+		Version: configuration.GetRequiredEnv("APP_VERSION"),
 		Commands: []*cli.Command{
 			{
 				Name:  "run",

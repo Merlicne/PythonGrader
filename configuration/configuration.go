@@ -23,11 +23,11 @@ type MySQLConfig struct {
 var AppConfig *Config
 
 func setConfig() {
-	AppConfig.MySQL.Host = viper.GetString("mysql_host")
-	AppConfig.MySQL.Port = viper.GetString("mysql_port")
-	AppConfig.MySQL.User = viper.GetString("mysql_user")
-	AppConfig.MySQL.Password = viper.GetString("mysql_password")
-	AppConfig.MySQL.Database = viper.GetString("mysql_database")
+	AppConfig.MySQL.Host = GetRequiredEnv("mysql_host")
+	AppConfig.MySQL.Port = GetRequiredEnv("mysql_port")
+	AppConfig.MySQL.User = GetRequiredEnv("mysql_user")
+	AppConfig.MySQL.Password = GetRequiredEnv("mysql_password")
+	AppConfig.MySQL.Database = GetRequiredEnv("mysql_database")
 }
 
 func init() {
@@ -40,6 +40,14 @@ func init() {
 
 func GetEnv(key string) string {
 	return viper.GetString(key)
+}
+
+func GetRequiredEnv(key string) string {
+	value := viper.GetString(key)
+	if value == "" {
+		log.Fatalf("Environment variable %s is required but not set", key)
+	}
+	return value
 }
 
 // LoadConfig loads configuration from various sources
