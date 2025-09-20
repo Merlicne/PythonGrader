@@ -1,0 +1,148 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "go: build",
+            "type": "shell",
+            "command": "go",
+            "args": ["build", "-v", "."],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        },
+        {
+            "label": "go: build race",
+            "type": "shell",
+            "command": "go",
+            "args": ["build", "-race", "-v", "."],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        },
+        {
+            "label": "go: test",
+            "type": "shell",
+            "command": "go",
+            "args": ["test", "-v", "./..."],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        },
+        {
+            "label": "go: run main",
+            "type": "shell",
+            "command": "go",
+            "args": ["run", ".", "--help"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        },
+        {
+            "label": "go: run with file",
+            "type": "shell",
+            "command": "go",
+            "args": ["run", ".", "run", "--file", "${input:pythonFile}"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        },
+        {
+            "label": "go: run with csv",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "run", ".", "run-csv",
+                "--csvfile", "${input:csvFile}",
+                "--latestVersionDir", "${input:latestDir}",
+                "--olderVersionDir", "${input:olderDir}",
+                "--workers", "${input:workers}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": "$go"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "pythonFile",
+            "description": "Python file path",
+            "default": "example.py",
+            "type": "promptString"
+        },
+        {
+            "id": "csvFile",
+            "description": "CSV file path",
+            "default": "test.csv",
+            "type": "promptString"
+        },
+        {
+            "id": "latestDir",
+            "description": "Latest version directory",
+            "default": "./latest",
+            "type": "promptString"
+        },
+        {
+            "id": "olderDir",
+            "description": "Older version directory",
+            "default": "./older",
+            "type": "promptString"
+        },
+        {
+            "id": "workers",
+            "description": "Number of workers",
+            "default": "4",
+            "type": "promptString"
+        }
+    ]
+}
